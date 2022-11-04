@@ -1,8 +1,10 @@
+import VueRouter from 'vue-router'
 export const asyncComponent = import('./index.vue');
 
 export function install(Vue) {
   if (!install.installed) {
     install.installed = true;
+    Vue.use(VueRouter);
     Vue.component(
       'lol',
       () => asyncComponent

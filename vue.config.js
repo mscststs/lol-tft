@@ -7,7 +7,6 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: {
     externals: {
-      'element-ui': 'ELEMENT',
       vue: 'Vue'
     },
     plugins: [
