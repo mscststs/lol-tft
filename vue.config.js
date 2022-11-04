@@ -2,6 +2,7 @@
 const fs = require("fs")
 
 
+const cookie = fs.existsSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : ""
 
 
 module.exports = {
@@ -49,12 +50,14 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://www.wegame.com.cn/api',
+        target: 'https://www.wegame.com.cn/',
         ws: true,
         changeOrigin: true,
-        headers:{
-          "trpc-caller": "wegame.pallas.web.LolBattle",
-          "cookie": fs.existsSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : ""
+        onProxyReq:function (proxyReq, req, res) {
+          proxyReq.setHeader('trpc-caller', "wegame.pallas.web.LolBattle");
+          proxyReq.setHeader('cookie', cookie);
+          proxyReq.setHeader('referer', 'https://www.wegame.com.cn/ioi');
+          proxyReq.setHeader('user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26');
         }
       },
     }

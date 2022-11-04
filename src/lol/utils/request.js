@@ -21,7 +21,8 @@ export default new class{
         method:"post",
         body:JSON.stringify(postData),
         headers:{
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "trpc-caller": "wegame.pallas.web.LolBattle"
         }
       }
     );
