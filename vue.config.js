@@ -54,7 +54,7 @@ module.exports = {
         changeOrigin: true,
         headers:{
           "trpc-caller": "wegame.pallas.web.LolBattle",
-          "cookie": fs.accessSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : ""
+          "cookie": fs.existsSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : ""
         }
       },
     }
