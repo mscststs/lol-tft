@@ -1,6 +1,4 @@
-## 使用前提
 
-1. 使用 fiddler 等工具捕获 cookies ，放在当前目录 cookies 文件中
 
 ## api 列表
 
