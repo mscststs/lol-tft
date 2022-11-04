@@ -1,4 +1,6 @@
 // vue.config.js
+const fs = require("fs")
+
 module.exports = {
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   // outputDir: './dist',
@@ -39,6 +41,19 @@ module.exports = {
           .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
           .end();
       }
+    }
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://www.wegame.com.cn/api',
+        ws: true,
+        changeOrigin: true,
+        headers:{
+          "trpc-caller": "wegame.pallas.web.LolBattle",
+          "cookie": fs.readFileSync("./cookies", "utf-8")
+        }
+      },
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="common">
     <div class="title">
-      Tips: 先选择区服
+      请先选择区服
     </div>
   </div>
 </template>
@@ -10,10 +10,10 @@
   .common{
     flex:auto;
     padding:40px 80px;
-    title{
-      padding:20px;
+    .title{
+      font-size: 20px;
       font-weight: normal;
-      font-family: "Gill Sans", sans-serif;
+      color:#ccc;
     }
   }
 </style>

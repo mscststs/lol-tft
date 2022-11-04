@@ -26,6 +26,7 @@
     "vue-router": "^3.6.5"
   },
   "devDependencies": {
+    "node-ipc": "^9.2.1",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2",

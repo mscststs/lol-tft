@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './app';
 
 import * as lol from "./lol/pack.js";
-console.log(lol)
+import "./mock";
 
 Vue.use(lol);
 

@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <div class="left">
+    <!-- <div class="left">
       
-    </div>
+    </div> -->
     <div class="right">
       <lol></lol>
     </div>
