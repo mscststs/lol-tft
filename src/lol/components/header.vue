@@ -37,7 +37,7 @@ export default {
       if(val){
         storage.set("area",val);
         if(this.$route.params.area !== val){
-          this.$router.push({ name: 'area', params: { area: val }})
+          this.$router.replace({ name: 'area', params: { area: val }})
 
         }
       }

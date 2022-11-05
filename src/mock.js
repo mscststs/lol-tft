@@ -10,6 +10,21 @@ window.WegameLogin = {
         "nick": "test",
         "channel": "qq"
       }
+    },
+    async getLoginUser(){
+      return {
+        "tgpid": 0,
+        "biz_refresh_time": 3000,
+        "biz_valid_time": 7200,
+        "showid": 0,
+        "personal_home_region": "CN",
+        "agent_client_type": 1,
+        "client_type": 1000005,
+        "version": 20180723,
+        "accounttype": 0,
+        "reallevel": 0,
+        "uin": 2817263026
+    }
     }
   }
 }

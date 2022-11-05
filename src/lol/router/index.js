@@ -12,15 +12,20 @@ const router = new VueRouter({
           component: ()=>import("../view/fallback/bindarea.vue"),
         },
         {
-          path:"/:area",
+          path:"/area/:area",
           props: true,
           name:"area",
-          children:[
-            {
-              path:"/",
-              component:()=>import("../view/self.vue"),
-            }
-          ]
+          component:()=>import("../view/self.vue"),
+        },
+        {
+          path:"/area/:area/type/:accountType/id/:id",
+          props: true,
+          name:"summary",
+          component:()=>import("../view/summary.vue"),
+        },
+        {
+          path:"*",
+          redirect: "/"
         }
       ]
     }
