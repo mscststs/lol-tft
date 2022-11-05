@@ -33,7 +33,6 @@ export default {
     color:#ddd;
     box-sizing: border-box;
     flex-direction: column;
-    overflow: hidden;
   }
   .wrap{
     display:flex;
@@ -54,9 +53,11 @@ export default {
     .comp{
       flex:auto;
       display:flex;
+      width:100%;
       flex-direction: column;
       z-index:10;
-      overflow: auto;
+      overflow:auto;
+      overflow:overlay
     }
   }
 

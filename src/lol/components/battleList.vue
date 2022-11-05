@@ -1,15 +1,31 @@
 <template>
-  <div class="battleList">
+  <div class="battleList" v-if="ready">
     <panel title="对局记录">
     <div class="container">
       <div class="list">
+        <template v-if="!battles.length">
+          <div class="no-data text">暂无数据</div>
+        </template>
         <battleListItem 
+          class="list-item"
+          :class="{
+            selected:selectedGame === item.game_id
+          }"
+          @click.native="handleSelect(item)"
           v-for="item of battles"
           :key="item.game_id"
           :data="item"
         ></battleListItem>
+
+        <template v-if="hasMore">
+          <div class="loadMore" @click="getBattleList">
+            <div class="moreText">点击加载更多</div>
+          </div>
+        </template>
       </div>
-      <div class="detail">
+      <div class="gutter"></div>
+      <div class="detail" v-if="selectedGame">
+        <battleDetail v-bind="userInfo" :gameId="selectedGame" :key="selectedGame"></battleDetail>
       </div>
     </div>
     </panel>
@@ -22,6 +38,7 @@ import userInfoMixin from "../mixins/userInfo.mixin"
 import panel from "./view/panel.vue"
 import icons from "./icons.vue"
 import battleListItem from "./battleListItem.vue"
+import battleDetail from "./battleDetail.vue"
 
 export default {
   mixins:[
@@ -30,6 +47,7 @@ export default {
   components:{
     panel,
     battleListItem,
+    battleDetail,
   },
   data(){
     return {
@@ -39,6 +57,8 @@ export default {
         count: 7,
       },
       hasMore:true,
+
+      selectedGame: null,
 
       battles:[]
     }
@@ -52,9 +72,16 @@ export default {
     await Promise.all([
       this.getBattleList(),
     ]);
+    if(this.battles.length){
+      // 自动展开第一局
+      this.handleSelect(this.battles[0])
+    }
     this.ready = true;
   },
   methods:{
+    handleSelect(item){
+      this.selectedGame = item.game_id;
+    },
     async getBattleList(){
       let { battles } = await rq.GetBattleList({
         ...this.rqOptions,
@@ -75,9 +102,55 @@ export default {
 
 <style lang="less" scoped>
   .battleList{
-      min-width:700px;
+    min-width:700px;
+    min-height: 600px;
     .list{
       min-width:650px;
+      max-height: 500px;
+      overflow:auto;
+      overflow:overlay
+      .no-data{
+        width:100%;
+        height:60px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        color:#999;
+      }
+      .list-item{
+        &:hover{
+          background-color: rgba(255,255,255,0.05);
+          cursor:pointer;
+        }
+        &.selected{
+          background-color: #003a65;
+          position:sticky;
+          top:0px;
+          bottom:0px;
+          z-index:10;
+          box-shadow: 0  0 20px 0 rgba(0,0,0,0.6);
+        }
+      }
+      .loadMore{
+        width:100%;
+        margin-top:10px;
+        padding:10px 0;
+        cursor:pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          background-color: rgba(255,255,255,0.05);
+        }
+      }
+    }
+    .gutter{
+      box-shadow:0 0 0 0.3px #4c463d;
+      margin: 20px 0;
+    }
+    .detail{
+      min-width:650px;
+      height:500px;
     }
   }
 </style>
