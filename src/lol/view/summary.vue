@@ -1,35 +1,35 @@
 <template>
-  <div>
-    
+  <div class="common">
+    <summonerInfo v-bind="userInfo"></summonerInfo>
+    <battleList v-bind="userInfo" style="margin-top:40px;"></battleList>
   </div>
 </template>
 
 <script>
-import rq from "../utils/request"
+
+import userInfoMixin from "../mixins/userInfo.mixin"
+import summonerInfo from "../components/summonerInfo.vue";
+import battleList from "../components/battleList.vue";
 
 export default {
-  props:[
-    "area",
-    "accountType",
-    "id"
+  mixins:[
+    userInfoMixin
   ],
-  computed:{
-    rqOptions(){
-      return {
-        account_type: parseInt(this.accountType),
-        area: parseInt(this.area),
-        id: this.id,
-        from_src: "lol_helper"
-      }
-    }
+  components:{
+    summonerInfo,
+    battleList
   },
   async mounted(){
-    let res = await rq.GetSummonerInfo(this.rqOptions);
-    console.log(res);
   }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+  .common{
+    display:flex;
+    flex-direction: column;
+    flex:auto;
+    padding: 40px 80px;
+  }
   
 </style>

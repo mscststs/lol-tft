@@ -22,6 +22,13 @@
 
 ```
 
+### 获取对局报表
+```json
+// POST https://www.wegame.com.cn/api/v1/wegame.pallas.game.LolBattle/GetBattleReport
+{"account_type":1,"id":"2817263026","area":1,"sids":[255],"from_src":"lol_helper"}
+
+```
+
 
 ### 获取对局列表
 

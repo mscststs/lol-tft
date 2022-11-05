@@ -1,6 +1,7 @@
 const simpleInterface = [
   "SearchPlayer",
   "GetSummonerInfo",
+  "GetBattleReport",
   "GetBattleList",
   "GetBattleDetail"
 ]
@@ -10,7 +11,7 @@ export default new class{
 
     // 自动生成函数
     simpleInterface.forEach(func=>{
-      this[func] = async _=> this.request(func, _);
+      this[func] = _=> this.request(func, _);
     })
   }
 
@@ -26,7 +27,13 @@ export default new class{
         }
       }
     );
-    return await res.json()
+    res = await res.json()
+    if(res && res.result && res.result.error_code){
+      //发生错误
+      throw new Error(`请求失败：${func} | `+res.result.error_message);
+    }else{
+      return res
+    }
   }
   
 }

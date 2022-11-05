@@ -6,7 +6,7 @@
       <div class="bgImg">
       </div>
       <div class="comp">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </div>
     </div>
   </div>
@@ -29,15 +29,17 @@ export default {
     flex:auto;
     width:100%;
     height:100%;
-    background-color:rgb(25, 35, 43);
-    color:white;
+    background-color:#19212b;
+    color:#ddd;
     box-sizing: border-box;
     flex-direction: column;
+    overflow: hidden;
   }
   .wrap{
     display:flex;
     flex:auto;
     position: relative;
+    overflow: hidden;
     .bgImg{
       position:absolute;
       left:0;
@@ -50,11 +52,11 @@ export default {
       z-index:1;
     }
     .comp{
+      flex:auto;
       display:flex;
       flex-direction: column;
-      flex:auto;
       z-index:10;
-      overflow-y: auto;
+      overflow: auto;
     }
   }
 
@@ -68,6 +70,6 @@ export default {
     border-radius:5px;
   }
   ::-webkit-scrollbar-track{
-    background:0 0;
+    background:#19212b 0 0;
   }
 </style>
