@@ -24,6 +24,9 @@ export default {
 
 
 <style lang="less">
+  *{
+    box-sizing: content-box;
+  }
   .main{
     display:flex;
     flex:auto;
