@@ -3,6 +3,9 @@ window.WegameLogin = {
     isLogin(){
       return true;
     },
+    logout(){
+      
+    },
     getUserInfo(){
       return {
         "tgp_id": "000000",
