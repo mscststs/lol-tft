@@ -146,6 +146,7 @@ export default {
       margin-left:5px;
       justify-content: space-between;
       .icon{
+        flex:none;
         width:18px;
         height:18px;
         object-fit: contain;
