@@ -17,6 +17,10 @@
       我的战绩
     </div>
     <div class="gutter"></div>
+    <div class="block button" @click="logout">
+      注销
+    </div>
+    <div class="gutter"></div>
 
     <div class="space"></div>
 
@@ -77,6 +81,10 @@ export default {
   methods:{
     toSelf(){
       this.$router.replace({ name: 'area', params: { area: this.$route.params.area }});
+    },
+    logout(){
+      WegameLogin.default.logout();
+      location.reload();
     },
     donate(){
       window.open("https://wsd.pages.interface.work/view?src=https%3A%2F%2Fpic.mscststs.com%2Fdonate.jpg");
