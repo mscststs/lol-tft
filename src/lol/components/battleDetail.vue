@@ -19,7 +19,8 @@
       <battleDetailPlayer
         v-for="player of battleDetail.player_details.filter(p=>p.teamId === team.teamId).sort((a,b)=>b.teamMadeSize - a.teamMadeSize)"
         class="player" :class="{
-          highlight: player.openid === openid
+          highlight: player.openid === openid,
+          teamflag: player.teamMadeSize >= 3
         }"
         :key="player.openid"
         :data="player"
