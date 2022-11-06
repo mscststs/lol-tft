@@ -21,6 +21,15 @@
       注销
     </div>
     <div class="gutter"></div>
+    <div class="space"></div>
+
+    <!-- 召唤师搜索 -->
+    <div class="block">
+      <input class="searchInput" type="text" v-model="searchText"
+        placeholder="搜索召唤师"
+        @keypress.enter="search"
+      >
+    </div>
 
     <div class="space"></div>
 
@@ -58,6 +67,7 @@ export default {
     return {
       areas,
       selectArea: "",
+      searchText:"",
     }
   },
   mounted(){
@@ -79,6 +89,11 @@ export default {
     }
   },
   methods:{
+    search(){
+      if(this.searchText){
+        this.$router.push({ name: 'search', params: { nickname: this.searchText }});
+      }
+    },
     toSelf(){
       this.$router.replace({ name: 'area', params: { area: this.$route.params.area }});
     },
@@ -137,6 +152,15 @@ export default {
         &:hover{
           background-color:rgba(255,255,255,0.05);
         }
+      }
+      .searchInput{
+        background-color: rgba(0,0,0,0.5);
+        color:#ddd;
+        border-radius: 20px;
+        height:20px;
+        border:1px solid #544729;
+        outline:none;
+        padding: 5px 10px;
       }
     }
     .gutter{

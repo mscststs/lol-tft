@@ -56,7 +56,7 @@ export default {
       ready:false,
       
       form:{
-        count: 7,
+        count: 10,
       },
       hasMore:true,
 
@@ -110,7 +110,7 @@ export default {
 
       .list{
         min-width:650px;
-        max-height: 500px;
+        max-height: 600px;
         overflow:auto;
         overflow:overlay
         .no-data{
@@ -158,7 +158,7 @@ export default {
       }
       .detail{
         min-width:650px;
-        height:500px;
+        height:600px;
       }
     }
   }
