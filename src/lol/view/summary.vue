@@ -1,5 +1,5 @@
 <template>
-  <div class="common">
+  <div class="common" v-if="ready">
     <summonerInfo v-bind="userInfo"></summonerInfo>
     <battleList v-bind="userInfo" style="margin-top:40px;"></battleList>
   </div>
@@ -10,6 +10,7 @@
 import userInfoMixin from "../mixins/userInfo.mixin"
 import summonerInfo from "../components/summonerInfo.vue";
 import battleList from "../components/battleList.vue";
+import {runeInit} from "../const/asyncValues"
 
 export default {
   mixins:[
@@ -19,8 +20,22 @@ export default {
     summonerInfo,
     battleList
   },
+  data(){
+    return {
+      ready: false,
+    }
+  },
   async mounted(){
-  }
+    try{
+      await Promise.all([
+        runeInit()
+      ]);
+      this.ready = true;
+    }catch(e){
+      console.error(e);
+      alert("初始化图标失败")
+    }
+  },
 }
 </script>
 

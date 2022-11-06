@@ -23,9 +23,11 @@
           </div>
         </template>
       </div>
+      
       <div class="gutter"></div>
+
       <div class="detail" v-if="selectedGame">
-        <battleDetail v-bind="userInfo" :gameId="selectedGame" :key="selectedGame"></battleDetail>
+        <battleDetail v-bind="userInfo" :gameId="selectedGame"></battleDetail>
       </div>
     </div>
     </panel>
@@ -104,53 +106,79 @@ export default {
   .battleList{
     min-width:700px;
     min-height: 600px;
-    .list{
-      min-width:650px;
-      max-height: 500px;
-      overflow:auto;
-      overflow:overlay
-      .no-data{
-        width:100%;
-        height:60px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        color:#999;
-      }
-      .list-item{
-        &:hover{
-          background-color: rgba(255,255,255,0.05);
+    .container{
+
+      .list{
+        min-width:650px;
+        max-height: 500px;
+        overflow:auto;
+        overflow:overlay
+        .no-data{
+          width:100%;
+          height:60px;
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          color:#999;
+        }
+        .list-item{
+          &:hover{
+            background-color: rgba(255,255,255,0.05);
+            cursor:pointer;
+          }
+          &.selected{
+            background-color: #28344e;
+            position:sticky;
+            top:0px;
+            bottom:0px;
+            z-index:10;
+            box-shadow: 0  0 20px 0 rgba(0,0,0,0.6);
+            &.失败{
+              background-color: #59343b;
+            }
+          }
+        }
+        .loadMore{
+          width:100%;
+          margin-top:10px;
+          padding:10px 0;
           cursor:pointer;
-        }
-        &.selected{
-          background-color: #003a65;
-          position:sticky;
-          top:0px;
-          bottom:0px;
-          z-index:10;
-          box-shadow: 0  0 20px 0 rgba(0,0,0,0.6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover{
+            background-color: rgba(255,255,255,0.05);
+          }
         }
       }
-      .loadMore{
-        width:100%;
-        margin-top:10px;
-        padding:10px 0;
-        cursor:pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &:hover{
-          background-color: rgba(255,255,255,0.05);
-        }
+      .gutter{
+        height:1px;
+        background-color :#4c463d;
+        margin: 10px 0;
+      }
+      .detail{
+        min-width:650px;
+        height:500px;
       }
     }
-    .gutter{
-      box-shadow:0 0 0 0.3px #4c463d;
-      margin: 20px 0;
-    }
-    .detail{
-      min-width:650px;
-      height:500px;
+  }
+  @media screen and (min-width: 1550px) {
+    .container{
+      display:flex;
+      flex-direction: row;
+      height:100%;
+      .list{
+        flex:auto;
+      }
+      .gutter{
+        width:1px !important;
+        height:auto !important;
+        background-color :#4c463d;
+        margin: 0px 10px !important;
+      }
+      .detail{
+        flex:auto;
+      }
     }
   }
 </style>
