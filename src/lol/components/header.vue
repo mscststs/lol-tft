@@ -12,6 +12,37 @@
         </option>
       </select>
     </div>
+    <div class="gutter"></div>
+    <div class="block button" @click="toSelf" v-if="$route.params.area">
+      我的战绩
+    </div>
+    <div class="gutter"></div>
+
+    <div class="space"></div>
+
+    <div class="gutter"></div>
+
+    <div class="block button" @click="donate">
+      向开发者捐赠
+    </div>
+
+    <div class="gutter"></div>
+
+    <div class="block button" @click="mainPage">
+      主页
+    </div>
+
+    <div class="gutter"></div>
+
+    <div class="block button" @click="openRepo">
+      Github
+    </div>
+
+    <div class="gutter"></div>
+
+    <div class="block button" @click="bugReport">
+      问题反馈
+    </div>
   </div>
 </template>
 
@@ -41,6 +72,23 @@ export default {
 
         }
       }
+    }
+  },
+  methods:{
+    toSelf(){
+      this.$router.replace({ name: 'area', params: { area: this.$route.params.area }});
+    },
+    donate(){
+      window.open("https://wsd.pages.interface.work/view?src=https%3A%2F%2Fpic.mscststs.com%2Fdonate.jpg");
+    },
+    mainPage(){
+      window.open("https://greasyfork.org/zh-CN/scripts/454184");
+    },
+    openRepo(){
+      window.open("https://github.com/mscststs/lol-tft");
+    },
+    bugReport(){
+      window.open("https://github.com/mscststs/lol-tft/issues/new")
     }
   }
 }
@@ -74,6 +122,21 @@ export default {
       align-items: center;
       padding:20px;
       font-size:15px;
+      &.button{
+        cursor:pointer;
+        color:#b59758;
+        font-size:14px;
+        &:hover{
+          background-color:rgba(255,255,255,0.05);
+        }
+      }
+    }
+    .gutter{
+      width:1px;
+      background-color: #24292e;
+    }
+    .space{
+      flex:auto;
     }
   }
 </style>

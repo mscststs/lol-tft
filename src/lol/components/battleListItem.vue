@@ -1,5 +1,5 @@
 <template>
-  <div class="battleListItem">
+  <div class="battleListItem" :class="winState">
     
     <div class="icon">
       <icons class="img" type="champions" :id="data.champion_id"></icons>
@@ -203,9 +203,11 @@ export default {
     
     .tags{
       margin-left:50px;
-      width:200px;
+      min-width:200px;
       display:flex;
+      flex:auto;
       flex-wrap: wrap;
+      align-items: center;
       .tag-item{
         background-color:#39437a;
         padding:3px 15px;
