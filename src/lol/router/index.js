@@ -12,6 +12,12 @@ const router = new VueRouter({
           component: ()=>import("../view/fallback/bindarea.vue"),
         },
         {
+          name:"search",
+          path:"/search/:nickname",
+          props: true,
+          component: ()=>import("../view/search.vue"),
+        },
+        {
           path:"/area/:area",
           props: true,
           name:"area",
