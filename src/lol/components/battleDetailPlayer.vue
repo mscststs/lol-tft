@@ -51,7 +51,12 @@
           bad: kda < 3
         }"
       >
-        {{kda}} : 1
+        <template v-if="data.numDeaths || !(data.championsKilled)">
+          {{kda}} : 1
+        </template>
+        <template v-else>
+          Perfect!
+        </template>
       </div>
     </div>
 
@@ -115,15 +120,17 @@ export default {
       }
       .badge{
         position:absolute;
-        left:0px;
-        bottom:0px;
         background-color: #000;
         color:#ddd;
         padding:0 3px;
         font-size:12px;
         transform: scale(0.8) translateX(-2px) translateY(2px);
         font-family:Verdana, Geneva, Tahoma, sans-serif;
-
+        &.level{
+          left:0px;
+          bottom:0px;
+          transform: scale(0.8) translateX(-2px) translateY(2px);
+        }
       }
     }
     .summonSpell{
