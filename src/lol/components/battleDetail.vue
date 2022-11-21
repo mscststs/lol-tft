@@ -33,7 +33,7 @@
         }"
         :key="player.openid"
         :data="player"
-        :teamData="team.player_details"
+        :totalData="battleDetail.player_details"
         @clickSummon="handleClickSummon"
       >
       </battleDetailPlayer>

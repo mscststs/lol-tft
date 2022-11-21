@@ -120,7 +120,7 @@ export default {
   mixins:[filters],
   props:[
     "data",
-    "teamData",
+    "totalData",
   ],
   components:{
     icons,
@@ -133,7 +133,7 @@ export default {
     },
     maxData(){
       const valueKey = ["totalDamageToChampions", "totalDamageTaken"];
-      return this.teamData.reduce((p,c)=>{
+      return this.totalData.reduce((p,c)=>{
         valueKey.forEach(key=>{
           p[key] = Math.max(p[key] || -Infinity, c[key] || -Infinity);
         });
