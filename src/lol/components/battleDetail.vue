@@ -1,28 +1,39 @@
 <template>
   <div class="battleDetail" v-if="ready">
     <div 
-      v-for="team of battleDetail.team_details" :key="team.teamId"
+      v-for="team of filteredTeams" :key="team.teamId"
       class="team" :class="team.win"
     >
       <div class="teamInfo">
-        <div class="state" :class="team.win">
-          {{team.win === 'Win' ? "胜利" : "失败"}}
+        <div class="block teamName" style="min-width: 236px;">
+          <div class="teamStateInfo">
+            <div class="state" :class="team.win">
+              {{team.win === 'Win' ? "胜利" : "失败"}}
+            </div>
+            <div class="name">
+              ({{team.teamId === '100' ? "蓝方" : "红方"}})
+            </div>
+          </div>
+
         </div>
-        <div class="name">
-          ({{team.teamId === '100' ? "蓝方" : "红方"}})
+        <div class="space flex-auto"></div>
+
+
+        <div class="block eloInfo">
+          <div class="ELO" title="ELO评分">
+            {{team.teamElo}}
+          </div>
         </div>
-        <div class="space"></div>
-        <div class="ELO" title="ELO评分">
-          {{team.teamElo}}
-        </div>
+
       </div>
       <battleDetailPlayer
-        v-for="player of battleDetail.player_details.filter(p=>p.teamId === team.teamId).sort((a,b)=>b.teamMadeSize - a.teamMadeSize)"
+        v-for="player of team.player_details"
         class="player" :class="{
           highlight: player.openid === openid
         }"
         :key="player.openid"
         :data="player"
+        :teamData="team.player_details"
         @clickSummon="handleClickSummon"
       >
       </battleDetailPlayer>
@@ -59,6 +70,14 @@ export default {
     }
   },
   computed:{
+    filteredTeams(){
+      return this.battleDetail.team_details.map(item=>{
+        return {
+          ...item,
+          player_details: this.battleDetail.player_details.filter(p=>p.teamId === item.teamId).sort((a,b)=>b.teamMadeSize - a.teamMadeSize)
+        }
+      })
+    }
   },
   async mounted(){
     await Promise.all([
@@ -101,29 +120,37 @@ export default {
         flex-direction: row;
         align-items: center;
         background-color:rgba(0,0,0,0.15);
-        .state{
-          font-weight: bold;
-          &.Win{
-            color:#5383e8
-          }
-          &.Fail{
-            color:#e84057
-          }
+        .teamName{
+          display:flex;
+          flex-direction: column;
+          .teamStateInfo{
+            display:flex;
+            flex-direction: row;
+            .state{
+              font-weight: bold;
+              &.Win{
+                color:#5383e8
+              }
+              &.Fail{
+                color:#e84057
+              }
 
+            }
+            .name{
+              margin-left: 5px;
+              color:#999;
+            }
+          }
         }
-        .name{
-          margin-left: 5px;;
-          color:#999;
-        }
-        .space{
-          flex:auto;
-        }
-        .ELO{
-          color:#b59758;
-          font-weight: bold;
-          font-size:20px;
-          font-family:Verdana, Geneva, Tahoma, sans-serif;
-        }
+        
+        .eloInfo{
+            .ELO{
+              color:#999;
+              cursor:default;
+              font-weight: bold;
+              font-family:Verdana, Geneva, Tahoma, sans-serif;
+            }
+          }
       }
       &.Win{
         background-color: #28344e;

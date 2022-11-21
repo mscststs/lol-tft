@@ -1,5 +1,7 @@
 <template>
-  <img :src="src" :title="title">
+  <div class="icon-container">
+    <img class="icon-img" :src="src" :title="title">
+  </div>
 </template>
 
 <script>
@@ -41,3 +43,17 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+  .icon-container{
+    display: flex;
+    position: relative;
+    .icon-img{
+      flex: auto;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: inherit;
+    }
+  }  
+</style>

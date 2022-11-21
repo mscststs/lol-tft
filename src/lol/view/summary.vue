@@ -45,6 +45,8 @@ export default {
     flex-direction: column;
     flex:auto;
     padding: 40px 80px;
+    min-width:1100px;
+    max-width:1440px;
   }
   
 </style>

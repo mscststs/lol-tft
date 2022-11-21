@@ -36,12 +36,35 @@
         </div>
       </div>
     </div>
-    <!-- 得分 -->
-    <div class="score">
-      <div class="gameScore">
-        {{data.gameScore | gameScore}}
-      </div>
+    
+    
+
+    <!-- Damage -->
+    <div class="TotalData">
+        <histogram 
+          title="总伤害"
+          class="damage graph" 
+          :class="{
+            highLight: data.totalDamageToChampions === maxData.totalDamageToChampions
+          }"
+          :value="data.totalDamageToChampions"
+          :max="maxData.totalDamageToChampions"
+          :text="(data.totalDamageToChampions / 1000).toFixed(1)"
+          :color="'#2cae7e'"
+        ></histogram>
+        <histogram 
+          title="总承伤"
+          class="Taken graph"
+          :class="{
+            highLight: data.totalDamageTaken === maxData.totalDamageTaken
+          }"
+          :value="data.totalDamageTaken"
+          :max="maxData.totalDamageTaken"
+          :text="(data.totalDamageTaken / 1000).toFixed(1)"
+          :color="'#cccccc'"
+        ></histogram>
     </div>
+    
 
     <!-- KDA -->
     <div class="KDA">
@@ -63,6 +86,7 @@
       </div>
     </div>
 
+
     <!-- 装备 -->
     <div class="item">
       <div class="item-row">
@@ -76,25 +100,45 @@
       </div>
     </div>
 
+    <div class="space flex-auto"></div>
+
+    <!-- 得分 -->
+    <div class="score">
+      <div class="gameScore">
+        {{data.gameScore | gameScore}}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import icons from "./icons.vue"
 import filters from "../mixins/filter.mixin"
+import histogram from "./histogram.vue";
 
 export default {
   mixins:[filters],
   props:[
     "data",
+    "teamData",
   ],
   components:{
     icons,
+    histogram,
   },
   computed:{
     kda(){
       let data = this.data;
       return ((data.championsKilled + data.assists) / (Math.max(data.numDeaths,1))).toFixed(2);
+    },
+    maxData(){
+      const valueKey = ["totalDamageToChampions", "totalDamageTaken"];
+      return this.teamData.reduce((p,c)=>{
+        valueKey.forEach(key=>{
+          p[key] = Math.max(p[key] || -Infinity, c[key] || -Infinity);
+        });
+        return p;
+      }, {});
     }
   },
   methods:{
@@ -230,6 +274,20 @@ export default {
         font-family:Verdana, Geneva, Tahoma, sans-serif;
       }
     }
+    .TotalData{
+      min-width:100px;
+      flex:auto;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .graph{
+        height:18px;
+        color:#aaa;
+        &.highLight{
+          color:#ff8200;
+        }
+      }
+    }
     .KDA{
       margin-left:5px;
       width:100px;
@@ -283,7 +341,6 @@ export default {
 
       }
     }
-
 
   }
 </style>

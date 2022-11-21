@@ -24,6 +24,8 @@ export default {
 
 
 <style lang="less">
+  @import "./assets/common.less";
+  
   *{
     box-sizing: content-box;
   }
@@ -56,11 +58,13 @@ export default {
     .comp{
       flex:auto;
       display:flex;
+      align-items: center;
+      justify-content: center;
       width:100%;
-      flex-direction: column;
+      flex-direction: row;
       z-index:10;
       overflow:auto;
-      overflow:overlay
+      overflow:overlay;
     }
   }
 

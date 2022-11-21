@@ -18,7 +18,7 @@ html,body{
   position:relative;
   display:flex;
   flex-direction: row;
-  overflow: hidden;
+  overflow: auto;
 }
 .page{
   display: flex;
