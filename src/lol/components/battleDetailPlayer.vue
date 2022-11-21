@@ -3,7 +3,10 @@
     <!-- 英雄 -->
     <div class="champion">
       <icons class="icon" type="champions" :id="data.championId"></icons>
-      <div class="badge level">{{data.level}}</div>
+      <!-- 等级 -->
+      <div class="badge level" title="英雄等级">{{data.level}}</div>
+      <!-- 预组队人数 -->
+      <!-- <div class="badge teamSize" title="预组队人数">{{data.teamMadeSize}}</div> -->
     </div>
     <!-- 召唤师技能 -->
     <div class="summonSpell">
@@ -22,10 +25,15 @@
         {{decodeURIComponent(data.name)}}
       </div>
       <div class="tags">
+        <div class="tag team team3" v-if="data.teamMadeSize===3">三黑</div>
+        <div class="tag team team4" v-if="data.teamMadeSize===4">四黑</div>
+        <div class="tag team team5" v-if="data.teamMadeSize===5">五黑</div>
         <div class="tag svp" v-if="data.battleHonour.isSvp">SVP</div>
         <div class="tag mvp" v-if="data.battleHonour.isMvp">MVP</div>
         <div class="tag afk" v-if="data.wasAfk">逃跑</div>
-        <div class="tag pentakill" v-if="data.battleHonour.isPentaKills" title="喜大普奔五杀了">五杀</div>
+        <div class="tag pentakill" v-if="data.battleHonour.isPentaKills" title="喜大普奔五杀了">
+          五杀<template v-if="data.pentaKills>1">×{{data.pentaKills}}</template>
+        </div>
       </div>
     </div>
     <!-- 得分 -->
@@ -115,15 +123,22 @@ export default {
       }
       .badge{
         position:absolute;
-        left:0px;
-        bottom:0px;
         background-color: #000;
         color:#ddd;
         padding:0 3px;
         font-size:12px;
-        transform: scale(0.8) translateX(-2px) translateY(2px);
         font-family:Verdana, Geneva, Tahoma, sans-serif;
-
+        cursor:default;
+        &.level{
+          left:0px;
+          bottom:0px;
+          transform: scale(0.8) translateX(-2px) translateY(2px);
+        }
+        &.teamSize{
+          right:0;
+          top:0;
+          transform: scale(0.8) translateX(2px) translateY(-2px);
+        }
       }
     }
     .summonSpell{
@@ -183,6 +198,9 @@ export default {
           transform: scale(0.9);
           margin-right:3px;
           box-shadow:1px 1px 1px 0 rgba(0,0,0,0.8);
+          &.team{
+            background-color:#00b3ff;
+          }
           &.svp{
             background-color:#eeeeee;
           }

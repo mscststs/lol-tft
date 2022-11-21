@@ -107,10 +107,12 @@ export default {
     min-width:700px;
     min-height: 600px;
     .container{
-
+      display:flex;
+      flex-direction: row;
       .list{
-        min-width:650px;
+        width:300px;
         max-height: 600px;
+        flex:none;
         overflow:auto;
         overflow:overlay
         .no-data{
@@ -151,25 +153,7 @@ export default {
           }
         }
       }
-      .gutter{
-        height:1px;
-        background-color :#4c463d;
-        margin: 10px 0;
-      }
-      .detail{
-        min-width:650px;
-        height:600px;
-      }
-    }
-  }
-  @media screen and (min-width: 1550px) {
-    .container{
-      display:flex;
-      flex-direction: row;
-      height:100%;
-      .list{
-        flex:auto;
-      }
+      
       .gutter{
         width:1px !important;
         height:auto !important;
@@ -178,6 +162,8 @@ export default {
       }
       .detail{
         flex:auto;
+        min-width:650px;
+        height:600px;
       }
     }
   }

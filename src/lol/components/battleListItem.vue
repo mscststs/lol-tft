@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="score">
+    <!-- <div class="score">
       <div class="point" title="得分">
         {{data.game_score | gameScore}}
       </div>
@@ -37,7 +37,7 @@
       >
         {{item}}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

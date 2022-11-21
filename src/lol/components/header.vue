@@ -51,11 +51,11 @@
       Github
     </div>
 
-    <div class="gutter"></div>
+    <!-- <div class="gutter"></div> -->
 
-    <div class="block button" @click="bugReport">
+    <!-- <div class="block button" @click="bugReport">
       问题反馈
-    </div>
+    </div> -->
   </div>
 </template>
 

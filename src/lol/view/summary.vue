@@ -10,7 +10,7 @@
 import userInfoMixin from "../mixins/userInfo.mixin"
 import summonerInfo from "../components/summonerInfo.vue";
 import battleList from "../components/battleList.vue";
-import {runeInit} from "../const/asyncValues"
+import {inits} from "../const/asyncValues"
 
 export default {
   mixins:[
@@ -28,7 +28,7 @@ export default {
   async mounted(){
     try{
       await Promise.all([
-        runeInit()
+        ...inits.map(v=>v())
       ]);
       this.ready = true;
     }catch(e){
