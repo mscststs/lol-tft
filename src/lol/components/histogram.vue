@@ -45,7 +45,7 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
-      width:30px;
+      width:50px;
       font-size:12px;
       margin-left:5px;
       font-family:Verdana, Geneva, Tahoma, sans-serif;

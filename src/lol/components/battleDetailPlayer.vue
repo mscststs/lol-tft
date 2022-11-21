@@ -49,7 +49,7 @@
           }"
           :value="data.totalDamageToChampions"
           :max="maxData.totalDamageToChampions"
-          :text="(data.totalDamageToChampions / 1000).toFixed(1)"
+          :text="(data.totalDamageToChampions / 1000).toFixed(1) + 'k'"
           :color="'#2cae7e'"
         ></histogram>
         <histogram 
@@ -60,7 +60,7 @@
           }"
           :value="data.totalDamageTaken"
           :max="maxData.totalDamageTaken"
-          :text="(data.totalDamageTaken / 1000).toFixed(1)"
+          :text="(data.totalDamageTaken / 1000).toFixed(1) + 'k'"
           :color="'#cccccc'"
         ></histogram>
     </div>
