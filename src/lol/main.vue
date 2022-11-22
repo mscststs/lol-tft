@@ -56,12 +56,8 @@ export default {
       z-index:1;
     }
     .comp{
-      flex:auto;
-      display:flex;
-      align-items: center;
-      justify-content: center;
+      display:block;
       width:100%;
-      flex-direction: row;
       z-index:10;
       overflow:auto;
       overflow:overlay;

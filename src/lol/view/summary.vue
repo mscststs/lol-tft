@@ -33,7 +33,7 @@ export default {
       this.ready = true;
     }catch(e){
       console.error(e);
-      alert("初始化图标失败")
+      alert("初始化基础数据失败")
     }
   },
 }
@@ -44,7 +44,8 @@ export default {
     display:flex;
     flex-direction: column;
     flex:auto;
-    padding: 40px 80px;
+    margin: 40px auto;
+    width:100%;
     min-width:1100px;
     max-width:1440px;
   }
