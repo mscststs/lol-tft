@@ -37,6 +37,7 @@ export default {
       flex:auto;
       display:flex;
       height: 50%;
+      background-color:#202831;
       .histogram-inner{
         height:100%;
       }

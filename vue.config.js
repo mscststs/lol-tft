@@ -2,7 +2,10 @@
 const fs = require("fs")
 
 
-const cookie = fs.existsSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : ""
+const getCookie = function(){
+  let res = fs.existsSync("./cookies") ? fs.readFileSync("./cookies", "utf-8") : "";
+  return res.replace("cookie: ","").trim();
+}
 
 
 module.exports = {
@@ -55,7 +58,7 @@ module.exports = {
         changeOrigin: true,
         onProxyReq:function (proxyReq, req, res) {
           proxyReq.setHeader('trpc-caller', "wegame.pallas.web.LolBattle");
-          proxyReq.setHeader('cookie', cookie);
+          proxyReq.setHeader('cookie', getCookie());
           proxyReq.setHeader('referer', 'https://www.wegame.com.cn/ioi');
           proxyReq.setHeader('user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26');
         }

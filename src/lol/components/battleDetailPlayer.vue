@@ -50,7 +50,7 @@
           :value="data.totalDamageToChampions"
           :max="maxData.totalDamageToChampions"
           :text="(data.totalDamageToChampions / 1000).toFixed(1) + 'k'"
-          :color="'#2cae7e'"
+          :color="'#1dbaa9'"
         ></histogram>
         <histogram 
           title="总承伤"
@@ -61,7 +61,7 @@
           :value="data.totalDamageTaken"
           :max="maxData.totalDamageTaken"
           :text="(data.totalDamageTaken / 1000).toFixed(1) + 'k'"
-          :color="'#cccccc'"
+          :color="'#cccc'"
         ></histogram>
     </div>
     
@@ -279,12 +279,19 @@ export default {
       flex:auto;
       display:flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       .graph{
         height:18px;
-        color:#aaa;
+        color:#ccc;
+        &.damage{
+          color:#1dbaa9;
+        }
+        &.Taken{
+          color:#ccc;
+        }
         &.highLight{
           color:#ff8200;
+          font-weight: bold;
         }
       }
     }
