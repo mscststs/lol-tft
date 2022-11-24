@@ -62,6 +62,9 @@
 <script>
 import areas from "../const/areas"
 import storage from "../utils/storage"
+
+import {sleep} from "../utils/index"
+
 export default {
   data(){
     return {
@@ -97,8 +100,9 @@ export default {
     toSelf(){
       this.$router.replace({ name: 'area', params: { area: this.$route.params.area }});
     },
-    logout(){
+    async logout(){
       WegameLogin.default.logout();
+      await sleep(500);
       location.reload();
     },
     donate(){

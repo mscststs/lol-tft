@@ -86,3 +86,10 @@ export function seconds2str(time) {
   }, time);
   return str;
 }
+
+
+export function sleep(ms){
+  return new Promise(resolve=>{
+    setTimeout(resolve,ms);
+  });
+}
