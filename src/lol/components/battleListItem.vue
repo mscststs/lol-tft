@@ -3,8 +3,9 @@
     
     <div class="icon">
       <icons class="img" type="champions" :id="data.champion_id"></icons>
-      <div class="badge mvp" v-if="data.was_mvp">MVP</div>
-      <div class="badge svp" v-if="data.was_svp">SVP</div>
+      <div class="badge afk" v-if="data.was_afk">逃跑</div>
+      <div class="badge mvp" v-else-if="data.was_mvp">MVP</div>
+      <div class="badge svp" v-else-if="data.was_svp">SVP</div>
     </div>
     <div class="state">
       <div class="title">
@@ -131,6 +132,9 @@ export default {
         font-weight: bold;
         border-radius: 2px;
         transform: scale(0.9);
+      }
+      .afk{
+        background-color:#fe5757;
       }
       .mvp{
         background-color:#f5e124;
