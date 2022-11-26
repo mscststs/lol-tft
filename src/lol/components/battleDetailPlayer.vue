@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <div class="space flex-auto"></div>
+    <!-- <div class="space flex-auto"></div> -->
 
     <!-- 得分 -->
     <div class="score">
