@@ -129,10 +129,12 @@ export default {
             flex-direction: row;
             .state{
               font-weight: bold;
-              &.Win{
+              &.Win,
+              &.LeaverWin{
                 color:#5383e8
               }
-              &.Fail{
+              &.Fail,
+              &.LeaverFail{
                 color:#e84057
               }
 
@@ -153,7 +155,8 @@ export default {
             }
           }
       }
-      &.Win{
+      &.Win,
+      &.LeaverWin{
         background-color: #28344e;
         .player{
           &:hover, &.highlight{
@@ -161,7 +164,8 @@ export default {
           }
         }
       }
-      &.Fail{
+      &.Fail,
+      &.LeaverFail{
         background-color: #59343b;
         .player{
           &:hover, &.highlight{
