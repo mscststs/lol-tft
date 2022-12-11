@@ -47,7 +47,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: url("./assets/bg.webp");
+    background-image: url(https://game.gtimg.cn/images/lol/lolstrategy/bg.jpg);
     background-size: 100% auto;
     background-repeat: no-repeat;
     z-index: 1;
