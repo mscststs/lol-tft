@@ -1,30 +1,26 @@
 <template>
-  <div>
-  </div>
+  <div></div>
 </template>
 
 <script>
-import rq from "../utils/request"
+import rq from "../utils/request";
 export default {
-  props:[
-    "area"
-  ],
-  data(){
-    return {
-
-    }
+  props: ["area"],
+  data() {
+    return {};
   },
-  async mounted(){
+  async mounted() {
     let userInfo = await WegameLogin.default.getLoginUser();
-    this.$router.replace({ name: 'summary', params: {
-      area: this.area,
-      accountType: 1,
-      id: userInfo.uin
-    }});
-  }
-}
+    this.$router.replace({
+      name: "summary",
+      params: {
+        area: this.area,
+        accountType: 1,
+        id: userInfo.uin,
+      },
+    });
+  },
+};
 </script>
 
-<style lang="less">
-  
-</style>
+<style lang="less"></style>
