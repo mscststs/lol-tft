@@ -7,7 +7,7 @@
     "dev": "npm run serve",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
-    "build": "vue-cli-service build --target lib --name lol --dest dist/lol src/lol/pack.js",
+    "build": "vue-cli-service build --target lib --name lol --dest dist/lol src/lol/pack.js && mv ./public/* ./dist/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
