@@ -4,7 +4,7 @@ window.WegameLogin = {
       return true;
     },
     logout(){
-      
+      alert("登出，请重新设置cookies")
     },
     getUserInfo(){
       return {
