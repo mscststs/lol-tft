@@ -63,7 +63,7 @@ import rq from "../utils/request";
 import userInfoMixin from "../mixins/userInfo.mixin";
 import panel from "./view/panel.vue";
 import icons from "./icons.vue";
-import { sleep } from "../utils/index";
+import { sleep, clearCookie } from "../utils/index";
 
 export default {
   mixins: [userInfoMixin],
@@ -97,6 +97,7 @@ export default {
         console.log(e);
         if (~e.message.indexOf("auth check failed")) {
           // 进入登录流程
+          clearCookie(); // 清除有问题的 cookies
           WegameLogin.default.logout();
           await sleep(500);
           location.reload();
