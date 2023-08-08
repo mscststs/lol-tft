@@ -58,7 +58,7 @@
 import areas from "../const/areas";
 import storage from "../utils/storage";
 
-import { sleep } from "../utils/index";
+import { sleep, clearCookie } from "../utils/index";
 
 export default {
   data() {
@@ -95,6 +95,7 @@ export default {
       this.$router.replace({ name: "area", params: { area: this.selectArea } });
     },
     async logout() {
+      clearCookie(); // 清除有问题的 cookies
       WegameLogin.default.logout();
       await sleep(500);
       location.reload();
