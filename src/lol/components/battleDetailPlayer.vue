@@ -358,6 +358,7 @@ export default {
         z-index: 10;
       }
       .cast-time {
+        font-size: 14px;
         line-height: 40px;
         padding: 0 10px;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
