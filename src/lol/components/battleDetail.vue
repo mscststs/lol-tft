@@ -35,7 +35,7 @@
         :class="{
           highlight: player.openid === openid,
         }"
-        :key="player.openid"
+        :key="`${battleDetail.game_id}_${player.openid}`"
         :data="player"
         :totalData="battleDetail.player_details"
         :mode="currentMode"
