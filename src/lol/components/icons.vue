@@ -1,15 +1,31 @@
 <template>
   <div class="icon-container">
-    <img class="icon-img" :src="src" :title="title" />
+    <img class="icon-img" :src="src" :title="title" @error="handleError" />
   </div>
 </template>
 
 <script>
 import { rune, items } from "../const/asyncValues";
+import { getRoleInfo } from "../utils/request";
+
 export default {
-  props: ["type", "id"],
+  props: ["type", "id", "roleId"],
+  data() {
+    return {
+      asyncIcon: null,
+      asyncTitle: null,
+    };
+  },
+  mounted() {
+    if (this.type === "spell") {
+      this.fetchSpellImage();
+    }
+  },
   computed: {
     src() {
+      if (this.asyncIcon) {
+        return this.asyncIcon;
+      }
       if (this.type === "usericon") {
         // 用户头像
         return `https://wegame.gtimg.com/g.26-r.c2d3c/helper/lol/assis/images/resources/usericon/${this.id}.png`;
@@ -29,6 +45,9 @@ export default {
       return "https://wegame.gtimg.com/g.26-r.c2d3c/helper/lol/assis/images/resources/items/0.png";
     },
     title() {
+      if (this.asyncTitle) {
+        return this.asyncTitle;
+      }
       if (this.type === "rune") {
         return rune[this.id].name;
       }
@@ -41,6 +60,21 @@ export default {
       }
 
       return "";
+    },
+  },
+  methods: {
+    handleError() {
+      if (this.asyncIcon) {
+        this.asyncIcon = null;
+      }
+    },
+    async fetchSpellImage() {
+      const roleInfo = await getRoleInfo(this.roleId);
+      const targetSpell = roleInfo.spells.find((item) => item.spellKey === this.id);
+      if (targetSpell) {
+        this.asyncIcon = targetSpell.abilityIconPath;
+        this.asyncTitle = `【${targetSpell.name}】 \n${targetSpell.description}`;
+      }
     },
   },
 };

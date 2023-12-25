@@ -13,7 +13,7 @@ export async function runeInit(){
 
 export async function itemsInit(){
   let res = await fetch("https://game.gtimg.cn/images/lol/act/img/js/items/items.js");
-  let result =await res.json();
+  let result = await res.json();
   items = result.items;
 }
 

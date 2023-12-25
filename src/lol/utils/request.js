@@ -37,3 +37,18 @@ export default new class{
   }
   
 }
+
+const roleInfoCache = {};
+
+/**
+ * @description 获取角色信息
+ * @param {*} roleId 
+ */
+export const getRoleInfo = async (roleId) => {
+  if(!roleInfoCache[roleId]){
+    const roleInfoReq = await fetch(`https://game.gtimg.cn/images/lol/act/img/js/hero/${roleId}.js`);
+    const roleInfoRes = await roleInfoReq.json();
+    roleInfoCache[roleId] = roleInfoRes;
+  }
+  return roleInfoCache[roleId];
+}

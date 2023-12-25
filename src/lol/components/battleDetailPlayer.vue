@@ -40,65 +40,109 @@
       </div>
     </div>
 
-    <!-- Damage -->
-    <div class="TotalData">
-      <histogram
-        title="总伤害"
-        class="damage graph"
-        :class="{
-          highLight: data.totalDamageToChampions === maxData.totalDamageToChampions,
-        }"
-        :value="data.totalDamageToChampions"
-        :max="maxData.totalDamageToChampions"
-        :text="(data.totalDamageToChampions / 1000).toFixed(1) + 'k'"
-        :color="'#1dbaa9'"
-      ></histogram>
-      <histogram
-        title="总承伤"
-        class="Taken graph"
-        :class="{
-          highLight: data.totalDamageTaken === maxData.totalDamageTaken,
-        }"
-        :value="data.totalDamageTaken"
-        :max="maxData.totalDamageTaken"
-        :text="(data.totalDamageTaken / 1000).toFixed(1) + 'k'"
-        :color="'#cccc'"
-      ></histogram>
-    </div>
+    <template v-if="mode === '概要'">
+      <!-- Damage -->
+      <div class="TotalData">
+        <histogram
+          title="总伤害"
+          class="damage graph"
+          :class="{
+            highLight: data.totalDamageToChampions === maxData.totalDamageToChampions,
+          }"
+          :value="data.totalDamageToChampions"
+          :max="maxData.totalDamageToChampions"
+          :text="(data.totalDamageToChampions / 1000).toFixed(1) + 'k'"
+          :color="'#1dbaa9'"
+        ></histogram>
+        <histogram
+          title="总承伤"
+          class="Taken graph"
+          :class="{
+            highLight: data.totalDamageTaken === maxData.totalDamageTaken,
+          }"
+          :value="data.totalDamageTaken"
+          :max="maxData.totalDamageTaken"
+          :text="(data.totalDamageTaken / 1000).toFixed(1) + 'k'"
+          :color="'#cccc'"
+        ></histogram>
+      </div>
 
-    <!-- KDA -->
-    <div class="KDA">
-      <div class="number">
-        <span class="kill">{{ data.championsKilled }}</span>
-        <span class="gutter">/</span>
-        <span class="death">{{ data.numDeaths }}</span>
-        <span class="gutter">/</span>
-        <span class="assist">{{ data.assists }}</span>
+      <!-- KDA -->
+      <div class="KDA">
+        <div class="number">
+          <span class="kill">{{ data.championsKilled }}</span>
+          <span class="gutter">/</span>
+          <span class="death">{{ data.numDeaths }}</span>
+          <span class="gutter">/</span>
+          <span class="assist">{{ data.assists }}</span>
+        </div>
+        <div
+          class="calc"
+          :class="{
+            well: kda >= 5,
+            normal: kda >= 3 && kda <= 5,
+            bad: kda < 3,
+          }"
+        >
+          {{ kda }} : 1
+        </div>
       </div>
-      <div
-        class="calc"
-        :class="{
-          well: kda >= 5,
-          normal: kda >= 3 && kda <= 5,
-          bad: kda < 3,
-        }"
-      >
-        {{ kda }} : 1
-      </div>
-    </div>
 
-    <!-- 装备 -->
-    <div class="item">
-      <div class="item-row">
-        <icons class="icon" type="item" :id="data.item0"></icons>
-        <icons class="icon" type="item" :id="data.item1"></icons>
-        <icons class="icon" type="item" :id="data.item2"></icons>
-        <icons class="icon" type="item" :id="data.item3"></icons>
-        <icons class="icon" type="item" :id="data.item4"></icons>
-        <icons class="icon" type="item" :id="data.item5"></icons>
-        <icons class="icon" type="item" :id="data.item6"></icons>
+      <!-- 装备 -->
+      <div class="item">
+        <div class="item-row">
+          <icons class="icon" type="item" :id="data.item0"></icons>
+          <icons class="icon" type="item" :id="data.item1"></icons>
+          <icons class="icon" type="item" :id="data.item2"></icons>
+          <icons class="icon" type="item" :id="data.item3"></icons>
+          <icons class="icon" type="item" :id="data.item4"></icons>
+          <icons class="icon" type="item" :id="data.item5"></icons>
+          <icons class="icon" type="item" :id="data.item6"></icons>
+        </div>
       </div>
-    </div>
+    </template>
+    <template v-if="mode === '技能'">
+      <!-- 技能释放次数 -->
+      <div class="flex-auto spells flex flex-row">
+        <div class="spell-item">
+          <icons class="spell-icon" type="summonSpell" :id="data.summonSpell1Id"></icons>
+          <div class="cast-time">{{ data.summonSpell1Cast }}</div>
+        </div>
+        <div class="spell-item">
+          <icons class="spell-icon" type="summonSpell" :id="data.summonSpell2Id"></icons>
+          <div class="cast-time">{{ data.summonSpell2Cast }}</div>
+        </div>
+        <div class="spell-item">
+          <icons
+            class="spell-icon"
+            type="spell"
+            id="passive"
+            :roleId="data.championId"
+          ></icons>
+          <div class="badge">被</div>
+        </div>
+        <div class="spell-item">
+          <icons class="spell-icon" type="spell" id="q" :roleId="data.championId"></icons>
+          <div class="badge">Q</div>
+          <div class="cast-time">{{ data.spell1Cast }}</div>
+        </div>
+        <div class="spell-item">
+          <icons class="spell-icon" type="spell" id="w" :roleId="data.championId"></icons>
+          <div class="badge">W</div>
+          <div class="cast-time">{{ data.spell2Cast }}</div>
+        </div>
+        <div class="spell-item">
+          <icons class="spell-icon" type="spell" id="e" :roleId="data.championId"></icons>
+          <div class="badge">E</div>
+          <div class="cast-time">{{ data.spell3Cast }}</div>
+        </div>
+        <div class="spell-item">
+          <icons class="spell-icon" type="spell" id="r" :roleId="data.championId"></icons>
+          <div class="badge">R</div>
+          <div class="cast-time flex-none">{{ data.spell4Cast }}</div>
+        </div>
+      </div>
+    </template>
 
     <!-- <div class="space flex-auto"></div> -->
 
@@ -118,7 +162,7 @@ import histogram from "./histogram.vue";
 
 export default {
   mixins: [filters],
-  props: ["data", "totalData"],
+  props: ["data", "totalData", "mode"],
   components: {
     icons,
     histogram,
@@ -290,6 +334,33 @@ export default {
       &.highLight {
         color: #ff8200;
         font-weight: bold;
+      }
+    }
+  }
+  .spells {
+    .spell-item {
+      display: flex;
+      flex: 1;
+      position: relative;
+      .spell-icon {
+        width: 30px;
+      }
+      .badge {
+        position: absolute;
+        left: 0;
+        bottom: 5px;
+        font-size: 12px;
+        transform: scale(0.8);
+        transform-origin: left bottom;
+        background-color: #000;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        padding: 0 3px;
+        z-index: 10;
+      }
+      .cast-time {
+        line-height: 40px;
+        padding: 0 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
     }
   }
