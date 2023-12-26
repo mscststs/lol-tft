@@ -5,6 +5,8 @@
         {{ title }}
       </div>
       <div class="auto-flex"></div>
+
+      <slot name="title-expand"> </slot>
     </div>
     <div class="panel-content">
       <slot></slot>

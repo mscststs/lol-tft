@@ -1,6 +1,19 @@
 <template>
   <div class="battleList" v-if="ready">
     <panel title="对局记录">
+      <template slot="title-expand">
+        <div class="mode">
+          <div
+            class="mode-btn"
+            v-for="item of modeOptions"
+            :key="item"
+            :class="{ active: item === currentMode }"
+            @click="handleChangeMode(item)"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </template>
       <div class="container">
         <div class="list">
           <template v-if="!battles.length">
@@ -28,7 +41,11 @@
         <div class="gutter"></div>
 
         <div class="detail" v-if="selectedGame">
-          <battleDetail v-bind="userInfo" :gameId="selectedGame"></battleDetail>
+          <battleDetail
+            v-bind="userInfo"
+            :gameId="selectedGame"
+            :currentMode="currentMode"
+          ></battleDetail>
         </div>
       </div>
     </panel>
@@ -62,6 +79,9 @@ export default {
       selectedGame: null,
 
       battles: [],
+
+      modeOptions: ["概要", "技能", "伤害"],
+      currentMode: "概要",
     };
   },
   computed: {
@@ -80,6 +100,9 @@ export default {
   methods: {
     handleSelect(item) {
       this.selectedGame = item.game_id;
+    },
+    handleChangeMode(mode) {
+      this.currentMode = mode;
     },
     async getBattleList() {
       let { battles } = await rq.GetBattleList({
@@ -102,6 +125,24 @@ export default {
 .battleList {
   min-width: 700px;
   min-height: 600px;
+
+  .mode {
+    display: flex;
+    flex-direction: row;
+    .mode-btn {
+      font-size: 14px;
+      padding: 4px 8px;
+      border: 1px solid #4c463d;
+      cursor: pointer;
+      user-select: none;
+      &.active {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      & + .mode-btn {
+        border-left: none;
+      }
+    }
+  }
   .container {
     display: flex;
     flex-direction: row;

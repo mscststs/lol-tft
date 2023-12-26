@@ -10,18 +10,12 @@
             <div class="name">({{ team.teamId === "100" ? "蓝方" : "红方" }})</div>
           </div>
         </div>
-        <div class="space flex-auto"></div>
-
-        <div class="flex-none mode flex flex-row">
-          <div
-            class="mode-btn"
-            v-for="item of modeOptions"
-            :key="item"
-            :class="{ active: item === currentMode }"
-            @click="handleChangeMode(item)"
-          >
-            {{ item }}
-          </div>
+        <div class="block teamData">
+          <span class="data-item totalKills" title="击杀">{{ team.totalKills }}</span>
+          /
+          <span class="data-item totalDeaths" title="死亡">{{ team.totalDeaths }}</span>
+          /
+          <span class="data-item totalAssists" title="助攻">{{ team.totalAssists }}</span>
         </div>
         <div class="space flex-auto"></div>
 
@@ -54,7 +48,7 @@ import battleDetailPlayer from "./battleDetailPlayer.vue";
 
 export default {
   mixins: [userInfoMixin],
-  props: ["gameId"],
+  props: ["gameId", "currentMode"],
   components: {
     battleDetailPlayer,
   },
@@ -65,8 +59,6 @@ export default {
   },
   data() {
     return {
-      modeOptions: ["概要", "技能"],
-      currentMode: "概要",
       ready: false,
       openid: null,
       battleDetail: null,
@@ -98,9 +90,6 @@ export default {
       this.openid = openid;
       this.battleDetail = battle_detail;
     },
-    handleChangeMode(mode) {
-      this.currentMode = mode;
-    },
     handleClickSummon({ openid }) {
       this.$router.push({
         name: "summary",
@@ -128,21 +117,6 @@ export default {
       flex-direction: row;
       align-items: center;
       background-color: rgba(0, 0, 0, 0.15);
-      .mode {
-        .mode-btn {
-          font-size: 14px;
-          padding: 4px 8px;
-          border: 1px solid #4c463d;
-          cursor: pointer;
-          user-select: none;
-          &.active {
-            background-color: rgba(255, 255, 255, 0.2);
-          }
-          & + .mode-btn {
-            border-left: none;
-          }
-        }
-      }
       .teamName {
         display: flex;
         flex-direction: column;
@@ -164,6 +138,13 @@ export default {
             margin-left: 5px;
             color: #999;
           }
+        }
+      }
+      .teamData {
+        font-size: 14px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        .data-item {
+          padding: 0 3px;
         }
       }
 

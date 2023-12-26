@@ -1,5 +1,5 @@
 <template>
-  <div class="battleDetailPlayer">
+  <div class="battleDetailPlayer" :data-teamMadeSize="data.teamMadeSize">
     <!-- 英雄 -->
     <div class="champion">
       <icons class="icon" type="champions" :id="data.championId"></icons>
@@ -24,6 +24,7 @@
         {{ decodeURIComponent(data.name) }}
       </div>
       <div class="tags">
+        <!-- <div class="tag team team2" v-if="data.teamMadeSize === 2">两黑</div> -->
         <div class="tag team team3" v-if="data.teamMadeSize === 3">三黑</div>
         <div class="tag team team4" v-if="data.teamMadeSize === 4">四黑</div>
         <div class="tag team team5" v-if="data.teamMadeSize === 5">五黑</div>
@@ -143,6 +144,67 @@
         </div>
       </div>
     </template>
+    <template v-if="mode === '伤害'">
+      <div class="flex-auto damage-main">
+        <!-- 总伤害 -->
+        <div class="flex-1 damage-item">
+          <histogram
+            title="总伤害"
+            class="graph total"
+            :class="{
+              highLight: data.totalDamageToChampions === maxData.totalDamageToChampions,
+            }"
+            :value="data.totalDamageToChampions"
+            :max="maxData.totalDamageToChampions"
+            :text="(data.totalDamageToChampions / 1000).toFixed(1) + 'k'"
+            :color="'#c85f13'"
+          ></histogram>
+        </div>
+        <!-- 魔法伤害 -->
+        <div class="flex-1 damage-item">
+          <histogram
+            title="魔法伤害"
+            class="graph magic"
+            :class="{
+              highLight: data.magicDamageToChampions === maxData.magicDamageToChampions,
+            }"
+            :value="data.magicDamageToChampions"
+            :max="maxData.magicDamageToChampions"
+            :text="(data.magicDamageToChampions / 1000).toFixed(1) + 'k'"
+            :color="'rgb(117 116 201)'"
+          ></histogram>
+        </div>
+        <!-- 物理伤害 -->
+        <div class="flex-1 damage-item">
+          <histogram
+            title="物理伤害"
+            class="graph physical"
+            :class="{
+              highLight:
+                data.physicalDamageToChampions === maxData.physicalDamageToChampions,
+            }"
+            :value="data.physicalDamageToChampions"
+            :max="maxData.physicalDamageToChampions"
+            :text="(data.physicalDamageToChampions / 1000).toFixed(1) + 'k'"
+            :color="'rgb(0 156 218)'"
+          ></histogram>
+        </div>
+        <!-- 真实伤害 -->
+        <div class="flex-1 damage-item">
+          <histogram
+            title="真实伤害"
+            class="graph true"
+            :class="{
+              highLight: data.trueDemageToChampions === maxData.trueDemageToChampions,
+            }"
+            :value="data.trueDemageToChampions"
+            :max="maxData.trueDemageToChampions"
+            :text="(data.trueDemageToChampions / 1000).toFixed(1) + 'k'"
+            :color="'#cccc'"
+          ></histogram>
+        </div>
+      </div>
+    </template>
 
     <!-- <div class="space flex-auto"></div> -->
 
@@ -176,7 +238,13 @@ export default {
       ).toFixed(2);
     },
     maxData() {
-      const valueKey = ["totalDamageToChampions", "totalDamageTaken"];
+      const valueKey = [
+        "totalDamageToChampions", // 总伤害
+        "totalDamageTaken",
+        "magicDamageToChampions", // 魔法伤害
+        "physicalDamageToChampions", // 物理伤害
+        "trueDemageToChampions", // 真实伤害
+      ];
       return this.totalData.reduce((p, c) => {
         valueKey.forEach((key) => {
           p[key] = Math.max(p[key] || -Infinity, c[key] || -Infinity);
@@ -362,6 +430,30 @@ export default {
         line-height: 40px;
         padding: 0 10px;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+    }
+  }
+  .damage-main {
+    display: flex;
+    flex-direction: row;
+
+    .damage-item {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      align-items: center;
+      & + .damage-item {
+        margin-left: 20px;
+      }
+
+      .graph {
+        height: 30px;
+        flex: auto;
+
+        &.highLight {
+          color: #ff8200;
+          font-weight: bold;
+        }
       }
     }
   }
